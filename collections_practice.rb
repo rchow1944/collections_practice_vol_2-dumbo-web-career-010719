@@ -1,3 +1,5 @@
+require 'pry'
+
 # your code goes here
 def begins_with_r(arr)
   res = true
@@ -35,16 +37,43 @@ def remove_non_strings(arr)
 end
 
 def count_elements(arr)
-  curr_hash = {}
   arr.each do |el|
-    binding.pry
-    arr.count(el)
+    el[:count] = arr.count(el)
+  end.uniq do |h| 
+    h[:name]
   end
 end
 
+def merge_data(keys, data)
+  keys.each do |d1|
+    data.each do |d2|
+      d2.each do |person, stats|
+        stats.each do |att, val|
+          if person == d1[:first_name]
+            d1[att] = val
+          end
+        end
+      end
+    end
+  end
+end
 
+def find_cool(data)
+  data.select do |person|
+    person[:temperature] == "cool"
+  end
+end
 
-
-
+def organize_schools(data)
+  res = {}
+  data.each do |school, info|
+    if res[info[:location]] == nil
+      res[info[:location]] = [school]
+    else
+      res[info[:location]] << school
+    end
+  end
+  res
+end
 
 
